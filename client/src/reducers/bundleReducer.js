@@ -4,7 +4,7 @@ const initialState = {
   bundle: null,
 };
 
-export default function (state = initialState, action) {
+export default function bundleReducer(state = initialState, action) {
   switch (action.type) {
     case ACTION.SELECT_BUNDLE_ACTION: {
       return {

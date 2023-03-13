@@ -16,7 +16,7 @@ const initialState = {
   haveMore: true,
 };
 
-export default function (state = initialState, action) {
+export default function getContestsReducer (state = initialState, action) {
   switch (action.type) {
     case ACTION.GET_CONTESTS_ACTION_REQUEST: {
       return {

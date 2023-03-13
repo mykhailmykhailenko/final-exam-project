@@ -20,7 +20,7 @@ import ChatError from '../../../ChatError/ChatError';
 
 const Chat = (props) => {
  
-    useEffect(() => {
+    useEffect((props) => {
       chatController.subscribeChat(props.userStore.data.id);
       props.getPreviewChat();
       return () => {

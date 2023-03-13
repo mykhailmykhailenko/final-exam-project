@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import { Form, Formik } from 'formik';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -31,7 +31,7 @@ const variableOptions = {
 
 const ContestForm = (props) => {
     
-    const getPreference = () => {
+    const getPreference = useCallback (() => {
       const { contestType } = props;
       switch (contestType) {
         case CONSTANTS.NAME_CONTEST: {
@@ -49,12 +49,13 @@ const ContestForm = (props) => {
           props.getData({ characteristic1: 'brandStyle' });
           break;
         }
+        default: 
       }
-    }
+    }, [props])
 
     useEffect (() => {
       getPreference()
-    }, [])
+    }, [getPreference])
    
     
       const { isFetching, error } = props.dataForContest;

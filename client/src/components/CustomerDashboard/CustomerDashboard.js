@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useCallback} from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { getContestsForCustomer, clearContestList, setNewCustomerFilter } from '../../actions/actionCreator';
@@ -10,8 +10,12 @@ import TryAgain from '../TryAgain/TryAgain';
 
 const CustomerDashboard = (props) => {
     
+    const getContests = useCallback(() => {
+      props.getContests({ limit: 8, contestStatus: props.customerFilter });
+    }, [props]);
+
     const loadMore = (startFrom) => {
-      props.getContests({
+      getContests({
         limit: 8,
         offset: startFrom,
         contestStatus: props.customerFilter,
@@ -23,17 +27,13 @@ const CustomerDashboard = (props) => {
       return () => {
         props.clearContestsList();
       }
-    }, [])
+    }, [getContests, props])
 
     useEffect ((prevProps, prevState, snapshot) => {
       if (props.customerFilter !== prevProps.customerFilter) {
         getContests();
       }
-    }, [props.customerFilter])
-
-    const getContests = () => {
-      props.getContests({ limit: 8, contestStatus: props.customerFilter });
-    };
+    }, [props.customerFilter, getContests])
 
     const goToExtended = (contest_id) => {
       props.history.push(`/contest/${contest_id}`);

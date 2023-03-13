@@ -3,15 +3,17 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import styles from './Header.module.sass';
 import CONSTANTS from '../../constants';
-import { getUserAction, clearUserStore, headerRequest } from '../../actions/actionCreator';
+import { clearUserStore, headerRequest } from '../../actions/actionCreator';
 
 const Header = (props) => {
   
+  const {data, getUser} = props;
+
   useEffect (() => {
-    if (!props.data) {
-      props.getUser();
+    if (!data) {
+      getUser();
     }
-  }, [])
+  }, [data, getUser])
 
     const logOut = () => {
       localStorage.clear();
@@ -46,14 +48,14 @@ const Header = (props) => {
                 <li><Link to="/account" style={{ textDecoration: 'none' }}><span>My Account</span></Link></li>
                 <li>
                   <Link
-                    to="#"
+                    to="!#"
                     style={{ textDecoration: 'none' }}
                   >
                     <span>Messages</span>
                   </Link>
                 </li>
                 <li>
-                  <Link to="#" style={{ textDecoration: 'none' }}><span>Affiliate Dashboard</span></Link>
+                  <Link to="!#" style={{ textDecoration: 'none' }}><span>Affiliate Dashboard</span></Link>
                 </li>
                 <li><span onClick={logOut}>Logout</span></li>
               </ul>
@@ -84,7 +86,7 @@ const Header = (props) => {
         <div className={styles.headerContainer}>
           <div className={styles.fixedHeader}>
             <span className={styles.info}>Squadhelp recognized as one of the Most Innovative Companies by Inc Magazine.</span>
-            <a href="#">Read Announcement</a>
+            <a href="!!#">Read Announcement</a>
           </div>
           <div className={styles.loginSignnUpHeaders}>
             <div className={styles.numberContainer}>
@@ -107,15 +109,15 @@ const Header = (props) => {
                       alt="menu"
                     />
                     <ul>
-                      <li><a href="#">Beauty</a></li>
-                      <li><a href="#">Consulting</a></li>
-                      <li><a href="#">E-Commerce</a></li>
-                      <li><a href="#">Fashion & Clothing</a></li>
-                      <li><a href="#">Finance</a></li>
-                      <li><a href="#">Real Estate</a></li>
-                      <li><a href="#">Tech</a></li>
+                      <li><a href="!#">Beauty</a></li>
+                      <li><a href="!#">Consulting</a></li>
+                      <li><a href="!#">E-Commerce</a></li>
+                      <li><a href="!#">Fashion & Clothing</a></li>
+                      <li><a href="!#">Finance</a></li>
+                      <li><a href="!#">Real Estate</a></li>
+                      <li><a href="!#">Tech</a></li>
                       <li className={styles.last}>
-                        <a href="#">More Categories</a>
+                        <a href="!#">More Categories</a>
                       </li>
                     </ul>
                   </li>
@@ -126,14 +128,14 @@ const Header = (props) => {
                       alt="menu"
                     />
                     <ul>
-                      <li><a href="#">HOW IT WORKS</a></li>
-                      <li><a href="#">PRICING</a></li>
-                      <li><a href="#">AGENCY SERVICE</a></li>
-                      <li><a href="#">ACTIVE CONTESTS</a></li>
-                      <li><a href="#">WINNERS</a></li>
-                      <li><a href="#">LEADERBOARD</a></li>
+                      <li><a href="!#">HOW IT WORKS</a></li>
+                      <li><a href="!#">PRICING</a></li>
+                      <li><a href="!#">AGENCY SERVICE</a></li>
+                      <li><a href="!#">ACTIVE CONTESTS</a></li>
+                      <li><a href="!#">WINNERS</a></li>
+                      <li><a href="!#">LEADERBOARD</a></li>
                       <li className={styles.last}>
-                        <a href="#">
+                        <a href="!#">
                             BECOME A
                             CREATIVE
 </a>
@@ -147,11 +149,11 @@ const Header = (props) => {
                       alt="menu"
                     />
                     <ul>
-                      <li><a href="#">NAMES</a></li>
-                      <li><a href="#">TAGLINES</a></li>
-                      <li><a href="#">LOGOS</a></li>
+                      <li><a href="!#">NAMES</a></li>
+                      <li><a href="!#">TAGLINES</a></li>
+                      <li><a href="!#">LOGOS</a></li>
                       <li className={styles.last}>
-                        <a href="#">TESTIMONIALS</a>
+                        <a href="!#">TESTIMONIALS</a>
                       </li>
                     </ul>
                   </li>
@@ -159,13 +161,13 @@ const Header = (props) => {
                     <span>Names For Sale</span>
                     <img src={`${CONSTANTS.STATIC_IMAGES_PATH}menu-down.png`} alt="menu" />
                     <ul>
-                      <li><a href="#">POPULAR NAMES</a></li>
-                      <li><a href="#">SHORT NAMES</a></li>
-                      <li><a href="#">INTRIGUING NAMES</a></li>
-                      <li><a href="#">NAMES BY CATEGORY</a></li>
-                      <li><a href="#">VISUAL NAME SEARCH</a></li>
+                      <li><a href="!#">POPULAR NAMES</a></li>
+                      <li><a href="!#">SHORT NAMES</a></li>
+                      <li><a href="!#">INTRIGUING NAMES</a></li>
+                      <li><a href="!#">NAMES BY CATEGORY</a></li>
+                      <li><a href="!#">VISUAL NAME SEARCH</a></li>
                       <li className={styles.last}>
-                        <a href="#">
+                        <a href="!#">
                             SELL YOUR
                             DOMAINS
 </a>
@@ -179,11 +181,11 @@ const Header = (props) => {
                       alt="menu"
                     />
                     <ul>
-                      <li><a href="#">ULTIMATE NAMING GUIDE</a></li>
-                      <li><a href="#">POETIC DEVICES IN BUSINESS NAMING</a></li>
-                      <li><a href="#">CROWDED BAR THEORY</a></li>
+                      <li><a href="!#">ULTIMATE NAMING GUIDE</a></li>
+                      <li><a href="!#">POETIC DEVICES IN BUSINESS NAMING</a></li>
+                      <li><a href="!#">CROWDED BAR THEORY</a></li>
                       <li className={styles.last}>
-                        <a href="#">ALL ARTICLES</a>
+                        <a href="!#">ALL ARTICLES</a>
                       </li>
                     </ul>
                   </li>

@@ -6,7 +6,7 @@ const initialState = {
   data: null,
 };
 
-export default function (state = initialState, action) {
+export default function updateContestReducer (state = initialState, action) {
   switch (action.type) {
     case ACTION.UPDATE_CONTEST_REQUEST: {
       return {

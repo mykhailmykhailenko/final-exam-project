@@ -6,7 +6,7 @@ import DialogList from '../../DialogComponents/DialogList/DialogList';
 
 const CatalogListContainer = (props) => {
   
-    useEffect(() => {
+    useEffect((props) => {
       props.getCatalogList();
     }, [])
 

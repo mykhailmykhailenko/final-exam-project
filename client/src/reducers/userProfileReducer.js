@@ -6,7 +6,7 @@ const initialState = {
   isEdit: false,
 };
 
-export default function (state = initialState, action) {
+export default function userProfileReduser (state = initialState, action) {
   switch (action.type) {
     case ACTION.CHANGE_PROFILE_MODE_VIEW: {
       return {

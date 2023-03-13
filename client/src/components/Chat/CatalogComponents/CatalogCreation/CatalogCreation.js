@@ -13,7 +13,7 @@ import CreateCatalog from '../CreateCatalog/CreateCatalog';
 
 const CatalogCreation = (props) => {
  
-    useEffect (() => {
+    useEffect ((props) => {
       props.getCatalogList();
     }, [])
   

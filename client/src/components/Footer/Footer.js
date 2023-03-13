@@ -6,7 +6,7 @@ const Footer = (props) => {
     const topFooterItemsRender = (item) => (
       <div key={item.title}>
         <h4>{item.title}</h4>
-        {item.items.map((i) => <a key={i} href="#">{i}</a>)}
+        {item.items.map((i) => <a key={i} href="!#">{i}</a>)}
       </div>
     );
 

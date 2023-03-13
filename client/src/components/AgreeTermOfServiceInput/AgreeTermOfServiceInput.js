@@ -18,7 +18,7 @@ const AgreeTermOfServiceInput = ({
             <label htmlFor={id}>
               By clicking this checkbox, you agree to our
               {' '}
-              <a href="#" target="_blank" rel="noreferrer">
+              <a href="!#" target="_blank" rel="noreferrer">
                 Terms of Service.
               </a>
             </label>

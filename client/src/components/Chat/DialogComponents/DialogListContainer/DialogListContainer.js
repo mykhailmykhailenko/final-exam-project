@@ -5,7 +5,7 @@ import DialogList from '../DialogList/DialogList';
 
 const DialogListContainer = (props) => {
   
-  useEffect(() => {
+  useEffect((props) => {
     props.getChatPreview();
   }, [])
   

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useCallback} from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import className from 'classnames';
@@ -10,15 +10,21 @@ import ChatInput from '../../ChatComponents/ChatInut/ChatInput';
 const Dialog = (props) => {
   const messagesEnd = React.createRef();
 
-    useEffect(() => {
+  const scrollToBottom = useCallback(() => {
+    messagesEnd.current.scrollIntoView({ behavior: 'smooth' });
+  }, [messagesEnd]);
+
+ 
+  
+    useEffect((props) => {
       props.getDialog({ interlocutorId: props.interlocutor.id });
       scrollToBottom();
       return () => {
         props.clearMessageList();
       }
-    }, [])
+    }, [messagesEnd, scrollToBottom])
 
-    useEffect((nextProps, nextContext) => {
+    useEffect((nextProps, nextContext, props) => {
       if (nextProps.interlocutor.id !== props.interlocutor.id) {
       props.getDialog({ interlocutorId: nextProps.interlocutor.id });
       }
@@ -26,15 +32,9 @@ const Dialog = (props) => {
 
     useEffect(() => {
       if (messagesEnd.current) {
-        scrollToBottom();
+          scrollToBottom();
       } 
-    }, [messagesEnd.current])
-
-    
-
-    const scrollToBottom = () => {
-      messagesEnd.current.scrollIntoView({ behavior: 'smooth' });
-    };
+    }, [messagesEnd, scrollToBottom])
 
     const renderMainDialog = () => {
       const messagesArray = [];

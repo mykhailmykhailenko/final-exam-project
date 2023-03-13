@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
@@ -57,42 +57,15 @@ const CreatorDashboard = (props) => {
       );
     };
 
-    useEffect((nextProps, nextContext)=>{
-      if (nextProps.location.search !== props.location.search) {
-        parseUrlForParams(nextProps.location.search);
-      }
-    }, [props.location.search]);
-
-    useEffect(() => {
-        getDataForContest();
-        if (parseUrlForParams(props.location.search) && !props.contests.length) {
-          getContests(props.creatorFilter);
-        }
-    }, [])
-
-    const getContests = (filter) => {
+    const getContests = useCallback((filter) => {
       props.getContests({
         limit: 8,
         offset: 0,
         ...filter,
       });
-    };
+    }, [props]);
 
-    const changePredicate = ({ name, value }) => {
-      const { creatorFilter } = props;
-      props.newFilter({ [name]: value === 'Choose industry' ? null : value });
-      parseParamsToUrl({ ...creatorFilter, ...{ [name]: value === 'Choose industry' ? null : value } });
-    };
-
-    const parseParamsToUrl = (creatorFilter) => {
-      const obj = {};
-      Object.keys(creatorFilter).forEach((el) => {
-        if (creatorFilter[el]) obj[el] = creatorFilter[el];
-      });
-      props.history.push(`/Dashboard?${queryString.stringify(obj)}`);
-    };
-
-    const parseUrlForParams = (search) => {
+    const parseUrlForParams = useCallback((search) => {
       const obj = queryString.parse(search);
       const filter = {
         typeIndex: obj.typeIndex || 1,
@@ -107,6 +80,33 @@ const CreatorDashboard = (props) => {
         getContests(filter);
         return false;
       } return true;
+    }, [props, getContests]);
+
+    useEffect((nextProps, nextContext)=>{
+      if (nextProps.location.search !== props.location.search) {
+        parseUrlForParams(nextProps.location.search);
+      }
+    }, [props.location.search, parseUrlForParams]);
+
+    useEffect(() => {
+        getDataForContest();
+        if (parseUrlForParams(props.location.search) && !props.contests.length) {
+          getContests(props.creatorFilter);
+        }
+    }, [getContests, parseUrlForParams, props.contests.length, props.creatorFilter, props.location.search])
+
+    const changePredicate = ({ name, value }) => {
+      const { creatorFilter } = props;
+      props.newFilter({ [name]: value === 'Choose industry' ? null : value });
+      parseParamsToUrl({ ...creatorFilter, ...{ [name]: value === 'Choose industry' ? null : value } });
+    };
+
+    const parseParamsToUrl = (creatorFilter) => {
+      const obj = {};
+      Object.keys(creatorFilter).forEach((el) => {
+        if (creatorFilter[el]) obj[el] = creatorFilter[el];
+      });
+      props.history.push(`/Dashboard?${queryString.stringify(obj)}`);
     };
 
     const getPredicateOfRequest = () => {

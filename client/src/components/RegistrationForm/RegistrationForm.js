@@ -17,7 +17,7 @@ const RegistrationForm = (props) => {
       return () => {
         props.authClear();
       }
-    }, [])
+    }, [props])
 
     const clicked = (values) => {
       props.register({

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import isEqual from 'lodash/isEqual';
@@ -24,19 +24,21 @@ import TryAgain from '../../components/TryAgain/TryAgain';
 import 'react-image-lightbox/style.css';
 import Error from '../../components/Error/Error';
 
-const ContestPage = (props) => {
-  
-  useEffect(() => {
-    getData();
-    return () => {
-      props.changeEditContest(false);
-    }
-  }, [])
-
-    const getData = () => {
+  const ContestPage = (props) => {
+    
+    const getData = useCallback(() => {
       const { params } = props.match;
       props.getData({ contestId: params.id });
-    };
+    }, [props]);
+
+    useEffect(() => {
+      getData();
+      return () => {
+        props.changeEditContest(false);
+      }
+    }, [getData, props])
+
+   
 
     const setOffersList = () => {
       const array = [];

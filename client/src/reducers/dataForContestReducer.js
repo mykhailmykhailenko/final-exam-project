@@ -6,7 +6,7 @@ const initialState = {
   error: null,
 };
 
-export default function (state = initialState, action) {
+export default function dataForContestReducer(state = initialState, action) {
   switch (action.type) {
     case ACTION.GET_DATA_FOR_CONTEST_ACTION_REQUEST: {
       return {

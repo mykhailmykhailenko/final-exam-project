@@ -4,7 +4,7 @@ const initialState = {
   contests: {},
 };
 
-export default function (state = initialState, action) {
+export default function storeContestReducer (state = initialState, action) {
   switch (action.type) {
     case ACTION.SAVE_CONTEST_TO_STORE: {
       return {

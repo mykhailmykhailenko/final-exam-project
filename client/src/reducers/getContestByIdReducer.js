@@ -1,5 +1,5 @@
 import ACTION from '../actions/actionTypes';
-import CONTANTS from '../constants';
+
 
 const initialState = {
   isFetching: true,
@@ -16,7 +16,7 @@ const initialState = {
   isShowModal: false,
 };
 
-export default function (state = initialState, action) {
+export default function getContestByIdReducer(state = initialState, action) {
   switch (action.type) {
     case ACTION.GET_CONTEST_BY_ID_REQUEST: {
       return {
