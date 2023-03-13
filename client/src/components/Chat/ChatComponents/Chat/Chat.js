@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import DialogListContainer from '../../DialogComponents/DialogListContainer/DialogListContainer';
@@ -18,20 +18,20 @@ import CatalogCreation from '../../CatalogComponents/CatalogCreation/CatalogCrea
 import CatalogListHeader from '../../CatalogComponents/CatalogListHeader/CatalogListHeader';
 import ChatError from '../../../ChatError/ChatError';
 
-class Chat extends React.Component {
-  componentDidMount() {
-    chatController.subscribeChat(this.props.userStore.data.id);
-    this.props.getPreviewChat();
-  }
+const Chat = (props) => {
+ 
+    useEffect(() => {
+      chatController.subscribeChat(props.userStore.data.id);
+      props.getPreviewChat();
+      return () => {
+        chatController.unsubscribeChat(props.userStore.data.id);
+      }
+    }, [])
 
-  componentWillUnmount() {
-    chatController.unsubscribeChat(this.props.userStore.data.id);
-  }
-
-    renderDialogList = () => {
-      const { setChatPreviewMode } = this.props;
-      const { chatMode, isShowChatsInCatalog } = this.props.chatStore;
-      const { id } = this.props.userStore.data;
+    const renderDialogList = () => {
+      const { setChatPreviewMode } = props;
+      const { chatMode, isShowChatsInCatalog } = props.chatStore;
+      const { id } = props.userStore.data;
       const {
         NORMAL_PREVIEW_CHAT_MODE,
         FAVORITE_PREVIEW_CHAT_MODE,
@@ -79,17 +79,17 @@ class Chat extends React.Component {
       );
     };
 
-    render() {
+   
       const {
         isExpanded, isShow, isShowCatalogCreation, error,
-      } = this.props.chatStore;
-      const { id } = this.props.userStore.data;
-      const { changeShow, getPreviewChat } = this.props;
+      } = props.chatStore;
+      const { id } = props.userStore.data;
+      const { changeShow, getPreviewChat } = props;
       return (
         <div className={classNames(styles.chatContainer, { [styles.showChat]: isShow })}>
           {error && <ChatError getData={getPreviewChat} />}
           {isShowCatalogCreation && <CatalogCreation />}
-          {isExpanded ? <Dialog userId={id} /> : this.renderDialogList()}
+          {isExpanded ? <Dialog userId={id} /> : renderDialogList()}
           <div
             className={styles.toggleChat}
             onClick={() => changeShow()}
@@ -98,7 +98,7 @@ class Chat extends React.Component {
           </div>
         </div>
       );
-    }
+    
 }
 
 const mapStateToProps = (state) => {

@@ -252,7 +252,7 @@ module.exports.getContests = (req, res, next) => {
   })
     .then(contests => {
       contests.forEach(
-        contest => contest.dataValues.count = contest.dataValues.Offer.length);
+        contest => contest.dataValues.count = contest.dataValues.Offers.length);
       let haveMore = true;
       if (contests.length === 0) {
         haveMore = false;

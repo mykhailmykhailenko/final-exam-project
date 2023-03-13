@@ -1,37 +1,38 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import styles from './Header.module.sass';
 import CONSTANTS from '../../constants';
 import { getUserAction, clearUserStore, headerRequest } from '../../actions/actionCreator';
 
-class Header extends React.Component {
-  componentDidMount() {
-    if (!this.props.data) {
-      this.props.getUser();
+const Header = (props) => {
+  
+  useEffect (() => {
+    if (!props.data) {
+      props.getUser();
     }
-  }
+  }, [])
 
-    logOut = () => {
+    const logOut = () => {
       localStorage.clear();
-      this.props.clearUserStore();
-      this.props.history.replace('/login');
+      props.clearUserStore();
+      props.history.replace('/login');
     };
 
-    startContests = () => {
-      this.props.history.push('/startContest');
+    const startContests = () => {
+      props.history.push('/startContest');
     };
 
-    renderLoginButtons = () => {
-      if (this.props.data) {
+    const renderLoginButtons = () => {
+      if (props.data) {
         return (
           <>
             <div className={styles.userInfo}>
               <img
-                src={this.props.data.avatar === 'anon.png' ? CONSTANTS.ANONYM_IMAGE_PATH : `${CONSTANTS.publicURL}${this.props.data.avatar}`}
+                src={props.data.avatar === 'anon.png' ? CONSTANTS.ANONYM_IMAGE_PATH : `${CONSTANTS.publicURL}${props.data.avatar}`}
                 alt="user"
               />
-              <span>{`Hi, ${this.props.data.displayName}`}</span>
+              <span>{`Hi, ${props.data.displayName}`}</span>
               <img src={`${CONSTANTS.STATIC_IMAGES_PATH}menu-down.png`} alt="menu" />
               <ul>
                 <li>
@@ -54,7 +55,7 @@ class Header extends React.Component {
                 <li>
                   <Link to="#" style={{ textDecoration: 'none' }}><span>Affiliate Dashboard</span></Link>
                 </li>
-                <li><span onClick={this.logOut}>Logout</span></li>
+                <li><span onClick={logOut}>Logout</span></li>
               </ul>
             </div>
             <img src={`${CONSTANTS.STATIC_IMAGES_PATH}email.png`} className={styles.emailIcon} alt="email" />
@@ -75,8 +76,8 @@ class Header extends React.Component {
       );
     };
 
-    render() {
-      if (this.props.isFetching) {
+    
+      if (props.isFetching) {
         return null;
       }
       return (
@@ -91,7 +92,7 @@ class Header extends React.Component {
               <span>(877)&nbsp;355-3585</span>
             </div>
             <div className={styles.userButtonsContainer}>
-              {this.renderLoginButtons()}
+              {renderLoginButtons()}
             </div>
           </div>
           <div className={styles.navContainer}>
@@ -188,13 +189,13 @@ class Header extends React.Component {
                   </li>
                 </ul>
               </div>
-              {this.props.data && this.props.data.role !== CONSTANTS.CREATOR
-                        && <div className={styles.startContestBtn} onClick={this.startContests}>START CONTEST</div>}
+              {props.data && props.data.role !== CONSTANTS.CREATOR
+                        && <div className={styles.startContestBtn} onClick={startContests}>START CONTEST</div>}
             </div>
           </div>
         </div>
       );
-    }
+    
 }
 
 const mapStateToProps = (state) => state.userStore;

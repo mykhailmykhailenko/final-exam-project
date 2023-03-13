@@ -1,17 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import { getPreviewChat } from '../../../../actions/actionCreator';
 import DialogList from '../DialogList/DialogList';
 
-class DialogListContainer extends React.Component {
-  componentDidMount() {
-    // this.props.getChatPreview();
-  }
-
-  render() {
-    const { messagesPreview, userId } = this.props;
+const DialogListContainer = (props) => {
+  
+  useEffect(() => {
+    props.getChatPreview();
+  }, [])
+  
+    const { messagesPreview, userId } = props;
     return <DialogList preview={messagesPreview} userId={userId} />;
-  }
+  
 }
 
 const mapStateToProps = (state) => state.chatStore;
